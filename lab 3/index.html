@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,
+			initial-scale=1, shrink-to-fit=no" />
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity=
+"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<title>
+		Lab 3 - ajax and JQuery used to read JSON files
+	</title>
+	<h1>Lab 3</h1>
+	<p> in this lab,  AJAX and JQuery are used to read data from JSON files</p>
+	<p> the data is put onto a table when the blue button is clicked</p>
+</head>
+
+<body>
+	<button type="button" id="fetchBtn"
+			class="btn btn-primary">
+		click me to load data onto page
+	</button>
+
+	<table id="list1">
+		<tr>
+			<th>Country</th>
+			<th>Capital city</th>
+			<th>Coastline</th>
+			<th>Continent</th>
+			<th>Curency</th>
+			<th>domain</th>
+			<th>flag</th>
+			<ul id="list"></ul>
+		</tr>
+		<tr >
+			<th > </th>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		var city = JSON.parse("country-by-capital-city.JSON");
+		var country = JSON.parse("country-by-capital-city.JSON");
+		var coastline = JSON.parse("country-by-coastline.JSON");
+		var currency = JSON.parse("country-by-currency.JSON");
+		var domain = JSON.parse("country-by-domain.JSON");
+		var flag = JSON.parse("country-by-flag.JSON");
+		$.ajax({
+			type:"GET",
+			url:city + country +coastline + currency + domain + flag,
+			data: {get_param: 'value'},
+			dataType:'json',
+			success:function(data)
+			{
+				var details = JSON.parse(data); 
+				$("button").click(function(){
+					$.each(data, function (index, element) {
+						element == this
+						const rowContent 
+							= `<tr>
+								<th>${data.country}</th>
+								<th>${data.city}</th>
+								<th>${data.coastline}</th>
+								<th>${data.continent}</th>
+								<th>${data.currency}</th>
+							   </tr>`;
+						$('#list1').append(rowContent);
+					});					
+				});
+			}
+			
+		});
+				
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity=
+"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous">
+	</script>
+	
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity=
+"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous">
+	</script>
+	
+	<script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity=
+"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous">
+	</script>
+</body>
+
+</html>
